@@ -97,7 +97,7 @@ def main():
     ax.text(24.3, ALPHA * 100 + 0.5, "5% target", color=MUTED, va="bottom", ha="right", fontsize=10)
     ax.text(21.0, naive[-1] * 100 - 0.4, "Stop at the\nfirst win", color=INK, va="center", fontsize=10)
     ax.text(21.0, fixed[-1] * 100 + 0.2, "Corrected\nthreshold", color=INK, va="center", fontsize=10)
-    for k, v in zip(looks, naive):
+    for k, v in zip(looks, naive, strict=True):
         ax.annotate(f"{v:.0%}", (k, v * 100), textcoords="offset points", xytext=(-4, 9), ha="center", color=INK, fontsize=10)
     ax.set_xticks(looks)
     ax.set_xlim(0, 24.5)

@@ -3,7 +3,8 @@ import math
 from dataclasses import asdict, dataclass
 
 import numpy as np
-from scipy.stats import norm, t as student_t
+from scipy.stats import norm
+from scipy.stats import t as student_t
 
 
 @dataclass

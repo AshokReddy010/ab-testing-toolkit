@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/AshokReddy010/ab-testing-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/AshokReddy010/ab-testing-toolkit/actions/workflows/ci.yml)
 
+**▶ [Experiment Desk: try it in your browser](https://ashokreddy010.github.io/ab-testing-toolkit/)**. Plan a test, read out the example experiment (or your own CSV) and run the peeking simulation. The page runs this package itself in Pyodide; your data never leaves the browser.
+
 A small Python toolkit that takes an experiment from planning to a written decision: how many users the test needs, whether the data can be trusted, whether the change worked, and what to do about it.
 
 It is built around the mistakes that most often make A/B test results wrong: stopping early, broken assignment, too many metrics, and noisy data. Each one has a check in the toolkit, and each check is verified against simulation.

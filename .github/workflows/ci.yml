@@ -2,17 +2,39 @@ name: CI
 
 on:
   push:
+    branches: [main]
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: pytest -q --cov=abkit --cov-report=term-missing
+      - name: Example readouts still run
+        run: |
+          python scripts/make_example_data.py
+          python scripts/run_readout.py
+
+  playground:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - run: pip install -r requirements.txt
-      - run: pytest -q
-      - run: python scripts/make_example_data.py
-      - run: python scripts/run_readout.py
+      - run: python playground/build.py
+      - name: The page loads the package files it lists
+        run: python -c "import json,pathlib; m=json.load(open('playground/site/manifest.json')); assert all(pathlib.Path('playground/site/py',f).exists() for f in m['files'])"

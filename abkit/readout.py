@@ -1,7 +1,6 @@
 """Turn raw experiment data into a decision and a written readout."""
 from dataclasses import dataclass, field
 
-import numpy as np
 import pandas as pd
 
 from .checks import srm_check
@@ -93,7 +92,7 @@ def analyse_experiment(
         adjusted_p = holm([r.p_value for r in extra])
         notes.append(
             "Holm-adjusted p-values for the non-primary metrics: "
-            + ", ".join(f"{r.metric.lower()} {p:.4f}" for r, p in zip(extra, adjusted_p))
+            + ", ".join(f"{r.metric.lower()} {p:.4f}" for r, p in zip(extra, adjusted_p, strict=True))
             + "."
         )
 
